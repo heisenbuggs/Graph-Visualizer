@@ -6,6 +6,10 @@ body {
   display: inline-block;
 }
 .input-container {
+  /* height: 100%; */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
   min-width: 75vw;
   margin: auto;
   text-align: center;
@@ -18,6 +22,7 @@ body {
 }
 .input-container{
   margin-top: 100px;
+
 }
 
 .input-item {
@@ -36,6 +41,7 @@ body {
 .center-button {
   height: 40px;
   width: 60px;
+  /* position: absolute; */
   bottom: 10px;
   left: calc(50% - 30px);
   font-size: 20px;
@@ -44,3 +50,13 @@ body {
   border-radius: 5px;
 }
 
+
+/* height: 40px;
+width: 60px;
+font-size: 20px;
+font-weight: bold;
+z-index: 1000;
+border-radius: 5px;
+margin: auto;
+margin-bottom: 10px;
+text-align: center; */
