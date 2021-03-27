@@ -1,8 +1,8 @@
+import React from "react";
 import {
   Checkbox,
   CheckboxProps,
   Container,
-  createMuiTheme,
   createStyles,
   FormControlLabel,
   Grid,
@@ -14,7 +14,6 @@ import {
   withStyles,
 } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
-import React, { PropsWithRef } from "react";
 import AlgoLinks from "../algoLinks";
 
 interface Styles extends Partial<Record<SwitchClassKey, string>> {
@@ -79,11 +78,6 @@ const IOSSwitch = withStyles((theme: Theme) =>
   );
 });
 
-const theme = createMuiTheme({
-  palette: {
-    primary: green,
-  },
-});
 
 const GreenCheckbox = withStyles({
   root: {
