@@ -1,5 +1,99 @@
-import React from "react";
+import {
+  Checkbox,
+  CheckboxProps,
+  Container,
+  createMuiTheme,
+  createStyles,
+  FormControlLabel,
+  Grid,
+  Switch,
+  SwitchClassKey,
+  SwitchProps,
+  Theme,
+  Typography,
+  withStyles,
+} from "@material-ui/core";
+import { green } from "@material-ui/core/colors";
+import React, { PropsWithRef } from "react";
 import AlgoLinks from "../algoLinks";
+
+interface Styles extends Partial<Record<SwitchClassKey, string>> {
+  focusVisible?: string;
+}
+interface Props extends SwitchProps {
+  classes: Styles;
+}
+
+const IOSSwitch = withStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: 42,
+      height: 26,
+      padding: 0,
+      margin: theme.spacing(1),
+    },
+    switchBase: {
+      padding: 1,
+      "&$checked": {
+        transform: "translateX(16px)",
+        color: theme.palette.common.white,
+        "& + $track": {
+          backgroundColor: "#52d869",
+          opacity: 1,
+          border: "none",
+        },
+      },
+      "&$focusVisible $thumb": {
+        color: "#52d869",
+        border: "6px solid #fff",
+      },
+    },
+    thumb: {
+      width: 24,
+      height: 24,
+    },
+    track: {
+      borderRadius: 26 / 2,
+      border: `1px solid ${theme.palette.grey[400]}`,
+      backgroundColor: theme.palette.grey[50],
+      opacity: 1,
+      transition: theme.transitions.create(["background-color", "border"]),
+    },
+    checked: {},
+    focusVisible: {},
+  })
+)(({ classes, ...props }: Props) => {
+  return (
+    <Switch
+      focusVisibleClassName={classes.focusVisible}
+      disableRipple
+      classes={{
+        root: classes.root,
+        switchBase: classes.switchBase,
+        thumb: classes.thumb,
+        track: classes.track,
+        checked: classes.checked,
+      }}
+      {...props}
+    />
+  );
+});
+
+const theme = createMuiTheme({
+  palette: {
+    primary: green,
+  },
+});
+
+const GreenCheckbox = withStyles({
+  root: {
+    color: green[400],
+    "&$checked": {
+      color: green[600],
+    },
+  },
+  checked: {},
+})((props: CheckboxProps) => <Checkbox color="default" {...props} />);
 
 const Input = ({
   inputString,
@@ -19,129 +113,156 @@ const Input = ({
   setInputType,
 }: any) => {
   return (
-    // <div>
-    <div className="input-container">
-      {/* <form> */}
-      <div className="card container">
-        <div>
-          <h2 style={{ textAlign: "center", margin: 10 }}> Input Graph </h2>
-        </div>
-        <div className="row">
-          <div
-            className="col-lg-6 col-sm-12 input-item"
+    <Container className="input-container">
+      <Container className="card container">
+        <Container>
+          <Typography variant="h4" style={{ textAlign: "center", margin: 10 }}>
+            <b>Input Graph</b>
+          </Typography>
+        </Container>
+        <Grid container>
+          <Grid
+            item
+            className="input-item"
+            sm={12}
+            md={6}
             style={{ borderRight: "1px solid rgba(0,0,0,.125)" }}
           >
-            <div className="row">
-              <div className="col-sm-6">
-                <h5>Input Type</h5>
-                <div>
-                  <input
-                    type="radio"
-                    checked={inputType === "plain"}
-                    name="inputType"
-                    value="plain"
-                    onChange={() => {
-                      setinputFormat("edg");
-                      setInputType("plain");
-                    }}
-                  />{" "}
-                  Plain Text
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    checked={inputType === "array"}
-                    name="inputType"
-                    value="array"
-                    onChange={() => setInputType("array")}
-                  />{" "}
-                  Array
-                </div>
-              </div>
-              <div className="col-sm-6">
-                <h5>Input Format</h5>
-                <div>
-                  <input
-                    type="radio"
-                    checked={inputFormat === "edg"}
-                    name="inputFormat"
-                    value="edg"
-                    onChange={() => setinputFormat("edg")}
-                  />{" "}
-                  Edges List
-                </div>
-                {inputType === "plain" ? (
-                  <div />
-                ) : (
-                  <div>
-                    <input
-                      type="radio"
-                      checked={inputFormat === "adj"}
+            <Grid container className="row">
+              <Grid item sm={6}>
+                <Typography variant="h5">Input Type</Typography>
+                <FormControlLabel
+                  control={
+                    <IOSSwitch
+                      checked={inputType === "plain"}
+                      value="plain"
+                      onClick={() => {
+                        setinputFormat("edg");
+                        setInputType("plain");
+                      }}
+                      name="inputType"
+                    />
+                  }
+                  label="Plain Text"
+                />
+                <FormControlLabel
+                  control={
+                    <IOSSwitch
+                      checked={inputType === "array"}
+                      value="array"
+                      onClick={() => {
+                        setInputType("array");
+                      }}
+                      name="inputType"
+                    />
+                  }
+                  label="Array"
+                />
+              </Grid>
+              <Grid item sm={6}>
+                <Typography variant="h5">Input Format</Typography>
+                <FormControlLabel
+                  control={
+                    <IOSSwitch
+                      checked={inputFormat === "edg"}
+                      value="edg"
+                      onClick={() => {
+                        setinputFormat("edg");
+                      }}
                       name="inputFormat"
-                      value="adj"
-                      onChange={() => setinputFormat("adj")}
-                    />{" "}
-                    Adjacency List
-                  </div>
+                    />
+                  }
+                  label="Edges List"
+                />
+                {inputType === "array" && (
+                  <FormControlLabel
+                    control={
+                      <IOSSwitch
+                        checked={inputFormat === "adj"}
+                        value="adj"
+                        onClick={() => {
+                          setinputFormat("adj");
+                        }}
+                        name="inputFormat"
+                      />
+                    }
+                    label="Adjacency List"
+                  />
                 )}
-              </div>
-              <div className="col-sm-6">
-                <h5>Graph Type</h5>
-                <div>
-                  <input
-                    type="radio"
-                    checked={graphType === "undirected"}
-                    name="graphType"
-                    onChange={() => setGraphType("undirected")}
-                  />{" "}
-                  Undirected List
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    checked={graphType === "directed"}
-                    name="graphType"
-                    onChange={() => setGraphType("directed")}
-                  />{" "}
-                  Directed List
-                </div>
-              </div>
-              <div className="col-sm-6">
-                <h5>Start Index</h5>
-                <div>
-                  <input
-                    type="radio"
-                    checked={is0 === false}
-                    name="is0"
-                    value="1"
-                    onChange={() => setIs0(false)}
-                  />{" "}
-                  1
-                </div>
-                <div>
-                  <input
-                    type="radio"
-                    checked={is0 === true}
-                    name="is0"
-                    value="0"
-                    onChange={() => setIs0(true)}
-                  />{" "}
-                  0
-                </div>
-              </div>
+              </Grid>
+              <Grid item sm={6}>
+                <Typography variant="h5">Graph Type</Typography>
+                <FormControlLabel
+                  control={
+                    <IOSSwitch
+                      checked={graphType === "undirected"}
+                      onClick={() => {
+                        setGraphType("undirected");
+                      }}
+                      name="graphType"
+                    />
+                  }
+                  label="Undirected Graph"
+                />
+                <FormControlLabel
+                  control={
+                    <IOSSwitch
+                      checked={graphType === "directed"}
+                      onClick={() => {
+                        setGraphType("directed");
+                      }}
+                      name="graphType"
+                    />
+                  }
+                  label="Directed Graph"
+                />
+              </Grid>
+              <Grid item sm={6}>
+                <Typography variant="h5">Start Index</Typography>
+                <FormControlLabel
+                  control={
+                    <IOSSwitch
+                      checked={is0 === false}
+                      value="1"
+                      onClick={() => {
+                        setIs0(false);
+                      }}
+                      name="is0"
+                    />
+                  }
+                  label="1"
+                />
+                <FormControlLabel
+                  control={
+                    <IOSSwitch
+                      checked={is0 === true}
+                      value="0"
+                      onClick={() => {
+                        setIs0(true);
+                      }}
+                      name="is0"
+                    />
+                  }
+                  label="0"
+                />
+              </Grid>
+            </Grid>
+
+            <div style={{ width: "100%", margin: "5px 0px 0px -16px" }}>
+              <FormControlLabel
+                control={
+                  <GreenCheckbox
+                    checked={isWeighted}
+                    onChange={(e) => {
+                      setIsWeighted(e.target.checked);
+                    }}
+                  />
+                }
+                label="Is Graph Weighted?"
+              />
             </div>
-            <div style={{ width: "100%", margin: "10px 0px" }}>
-              <input
-                type="checkbox"
-                onChange={(e) => {
-                  setIsWeighted(e.target.checked);
-                }}
-                checked={isWeighted}
-              />{" "}
-              Is Graph Weighted?
-            </div>
-            <div style={{ width: "100%" }}>
-              <h5>Input</h5>
+            <div style={{ width: "100%", margin: "5px 0 0 -16px" }}>
+              <Typography variant="h5">Input</Typography>
               <textarea
                 placeholder={format.ex}
                 rows={5}
@@ -150,7 +271,7 @@ const Input = ({
                 onChange={(e) => setinputString(e.target.value)}
               />
             </div>
-          </div>
+          </Grid>
 
           <div className="col-lg-6 col-sm-12 input-item">
             <h5>Input Format</h5>
@@ -158,7 +279,7 @@ const Input = ({
             <b>Example:</b> <pre>{format.ex}</pre>
             <p>{format.exp}</p>
           </div>
-        </div>
+        </Grid>
         <div className="row"></div>
         <hr />
         <div style={{ color: "red", textAlign: "center" }}>{error}</div>
@@ -171,7 +292,7 @@ const Input = ({
             Submit
           </button>
         </div>
-      </div>
+      </Container>
       <div></div>
 
       {/* </form> */}
@@ -198,8 +319,8 @@ const Input = ({
           {/* <a href="#" className="card-link">Another link</a> */}
         </div>
       </div>
-    </div>
+    </Container>
   );
-}
+};
 
 export default Input;

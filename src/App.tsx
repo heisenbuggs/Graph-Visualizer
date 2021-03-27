@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import create from "./graph/createGraph";
 import GraphElement from "./component/graph";
 import "./App.css";
@@ -20,11 +20,14 @@ const App = () => {
   const [isWeighted, setIsWeighted] = useState(false);
   const [is0, setIs0] = useState(false);
   const [inputType, setInputType] = useState("plain");
+
   let f =
     input[is0 ? "s0" : "s1"][inputType][isWeighted ? "w" : "unw"][inputFormat];
-  React.useEffect(() => {
+  
+  useEffect(() => {
     setinputString(f.in);
   }, [f]);
+
   const parse = () => {
     setError("");
     try {
@@ -59,10 +62,7 @@ const App = () => {
         is0={is0}
       />
     );
-  // let f=isWeighted?inputFormat.w[inputFormat]:inputFormat.unw[inputFormat]
-  // if(is0){
-  //   f=JSON.parse(JSON.stringify(f).split('').map((e:any)=> (e!==' ' && !isNaN(e))? parseInt(e)-1: e).join(""))
-  // }
+
   const props = {
     isWeighted,
     setIsWeighted,
@@ -81,6 +81,6 @@ const App = () => {
     format: f,
   };
   return <Input {...props} />;
-}
+};
 
 export default App;
