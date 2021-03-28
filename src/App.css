@@ -2,34 +2,38 @@ body {
   padding: 0;
   margin: 0;
 }
+
 .card{
   display: inline-block;
 }
+
 .input-container {
   min-width: 75vw;
-  margin: auto;
   text-align: center;
+  margin-top: 20px;
 }
 
 .input-container .card {
   margin: auto;
   margin-bottom : 100px;
   text-align: left;
-}
-.input-container{
-  margin-top: 100px;
-
+  padding-bottom: 20px;
 }
 
 .input-item {
   justify-content: center;
   align-items: center;
   padding: 20px;
+  padding-right: 0px;
+  position: relative;
 }
 
 .input-submit {
   width: 100%;
   border: 0;
+  position: absolute;
+  right: 0;
+  bottom: 0;
   padding: 10px;
   cursor: pointer;
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Button,
   Checkbox,
   CheckboxProps,
   Container,
@@ -9,12 +10,14 @@ import {
   Switch,
   SwitchClassKey,
   SwitchProps,
+  TextField,
   Theme,
   Typography,
   withStyles,
 } from "@material-ui/core";
-import { green } from "@material-ui/core/colors";
+import { green, orange } from "@material-ui/core/colors";
 import AlgoLinks from "../algoLinks";
+import { Send } from "@material-ui/icons";
 
 interface Styles extends Partial<Record<SwitchClassKey, string>> {
   focusVisible?: string;
@@ -37,13 +40,13 @@ const IOSSwitch = withStyles((theme: Theme) =>
         transform: "translateX(16px)",
         color: theme.palette.common.white,
         "& + $track": {
-          backgroundColor: "#52d869",
+          backgroundColor: orange[500],
           opacity: 1,
           border: "none",
         },
       },
       "&$focusVisible $thumb": {
-        color: "#52d869",
+        color: orange[500],
         border: "6px solid #fff",
       },
     },
@@ -78,12 +81,40 @@ const IOSSwitch = withStyles((theme: Theme) =>
   );
 });
 
+const CssTextField = withStyles({
+  root: {
+    "& label.Mui-focused": {
+      color: orange[500],
+    },
+    "& .MuiInput-underline:after": {
+      borderBottomColor: orange[500],
+    },
+    "& .MuiOutlinedInput-root": {
+      "&:hover fieldset": {
+        borderColor: orange[500],
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: orange[500],
+      },
+    },
+  },
+})(TextField);
+
+const ColorButton = withStyles((theme: Theme) => ({
+  root: {
+    color: theme.palette.getContrastText(green[500]),
+    backgroundColor: orange[500],
+    "&:hover": {
+      backgroundColor: orange[700],
+    },
+  },
+}))(Button);
 
 const GreenCheckbox = withStyles({
   root: {
-    color: green[400],
+    color: orange[400],
     "&$checked": {
-      color: green[600],
+      color: orange[600],
     },
   },
   checked: {},
@@ -108,7 +139,7 @@ const Input = ({
 }: any) => {
   return (
     <Container className="input-container">
-      <Container className="card container">
+      <Container className="card">
         <Container>
           <Typography variant="h4" style={{ textAlign: "center", margin: 10 }}>
             <b>Input Graph</b>
@@ -119,11 +150,11 @@ const Input = ({
             item
             className="input-item"
             sm={12}
-            md={6}
+            md={7}
             style={{ borderRight: "1px solid rgba(0,0,0,.125)" }}
           >
             <Grid container className="row">
-              <Grid item sm={6}>
+              <Grid item sm={5}>
                 <Typography variant="h5">Input Type</Typography>
                 <FormControlLabel
                   control={
@@ -153,7 +184,7 @@ const Input = ({
                   label="Array"
                 />
               </Grid>
-              <Grid item sm={6}>
+              <Grid item sm={7}>
                 <Typography variant="h5">Input Format</Typography>
                 <FormControlLabel
                   control={
@@ -184,34 +215,7 @@ const Input = ({
                   />
                 )}
               </Grid>
-              <Grid item sm={6}>
-                <Typography variant="h5">Graph Type</Typography>
-                <FormControlLabel
-                  control={
-                    <IOSSwitch
-                      checked={graphType === "undirected"}
-                      onClick={() => {
-                        setGraphType("undirected");
-                      }}
-                      name="graphType"
-                    />
-                  }
-                  label="Undirected Graph"
-                />
-                <FormControlLabel
-                  control={
-                    <IOSSwitch
-                      checked={graphType === "directed"}
-                      onClick={() => {
-                        setGraphType("directed");
-                      }}
-                      name="graphType"
-                    />
-                  }
-                  label="Directed Graph"
-                />
-              </Grid>
-              <Grid item sm={6}>
+              <Grid item sm={5}>
                 <Typography variant="h5">Start Index</Typography>
                 <FormControlLabel
                   control={
@@ -240,6 +244,34 @@ const Input = ({
                   label="0"
                 />
               </Grid>
+              <Grid item sm={7}>
+                <Typography variant="h5">Graph Type</Typography>
+                <FormControlLabel
+                  control={
+                    <IOSSwitch
+                      checked={graphType === "undirected"}
+                      onClick={() => {
+                        setGraphType("undirected");
+                      }}
+                      name="graphType"
+                    />
+                  }
+                  label="Undirected Graph"
+                />
+                <FormControlLabel
+                  control={
+                    <IOSSwitch
+                      checked={graphType === "directed"}
+                      onClick={() => {
+                        setGraphType("directed");
+                      }}
+                      name="graphType"
+                    />
+                  }
+                  label="Directed Graph"
+                />
+              </Grid>
+              
             </Grid>
 
             <div style={{ width: "100%", margin: "5px 0px 0px -16px" }}>
@@ -257,39 +289,42 @@ const Input = ({
             </div>
             <div style={{ width: "100%", margin: "5px 0 0 -16px" }}>
               <Typography variant="h5">Input</Typography>
-              <textarea
-                placeholder={format.ex}
+              <CssTextField
+                multiline
                 rows={5}
-                style={{ padding: 10, resize: "none", width: "100%" }}
+                style={{ resize: "none", width: "100%", paddingTop: 10 }}
+                defaultValue={format.ex}
                 value={inputString}
                 onChange={(e) => setinputString(e.target.value)}
+                variant="outlined"
               />
             </div>
           </Grid>
 
-          <div className="col-lg-6 col-sm-12 input-item">
-            <h5>Input Format</h5>
-            <pre style={{ whiteSpace: "break-spaces" }}>{format.text}</pre>
-            <b>Example:</b> <pre>{format.ex}</pre>
-            <p>{format.exp}</p>
-          </div>
+          <Grid item md={5} sm={12} className="input-item">
+            <Typography variant="h5">Instructions</Typography>
+            <Typography variant="subtitle1">{format.text}</Typography>
+            <br />
+            <Typography variant="body1">
+              <b>Example : </b>
+            </Typography>
+            <pre>{format.ex}</pre>
+            <Typography variant="subtitle1">{format.exp}</Typography>
+          </Grid>
         </Grid>
-        <div className="row"></div>
-        <hr />
         <div style={{ color: "red", textAlign: "center" }}>{error}</div>
-        <div style={{ margin: "0 -15px", width: "calc(100% + 30px)" }}>
-          <button
-            style={{ borderRadius: "0px 0px 0.25rem 0.25rem" }}
-            className="input-submit btn btn-primary"
-            onClick={parse}
-          >
-            Submit
-          </button>
-        </div>
+        <ColorButton
+          variant="contained"
+          color="secondary"
+          onClick={parse}
+          className="input-submit"
+          endIcon={<Send />}
+        >
+          <Typography variant="subtitle2"><b>Submit</b></Typography>
+        </ColorButton>
       </Container>
       <div></div>
 
-      {/* </form> */}
       <div className="card" style={{ textAlign: "left" }}>
         <div className="card-body">
           <h5 className="card-title">Useful Algorithms</h5>
@@ -309,8 +344,6 @@ const Input = ({
               })()}
             </ol>
           </div>
-          {/* <a href="#" className="card-link">Card link</a> */}
-          {/* <a href="#" className="card-link">Another link</a> */}
         </div>
       </div>
     </Container>
