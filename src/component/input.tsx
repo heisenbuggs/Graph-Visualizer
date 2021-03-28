@@ -7,6 +7,7 @@ import {
   createStyles,
   FormControlLabel,
   Grid,
+  Link,
   Switch,
   SwitchClassKey,
   SwitchProps,
@@ -271,7 +272,6 @@ const Input = ({
                   label="Directed Graph"
                 />
               </Grid>
-              
             </Grid>
 
             <div style={{ width: "100%", margin: "5px 0px 0px -16px" }}>
@@ -320,32 +320,40 @@ const Input = ({
           className="input-submit"
           endIcon={<Send />}
         >
-          <Typography variant="subtitle2"><b>Submit</b></Typography>
+          <Typography variant="subtitle2">
+            <b>Submit</b>
+          </Typography>
         </ColorButton>
       </Container>
       <div></div>
 
-      <div className="card" style={{ textAlign: "left" }}>
-        <div className="card-body">
-          <h5 className="card-title">Useful Algorithms</h5>
-          <h6 className="card-subtitle mb-2 text-muted">Links</h6>
-          <div className="card-text">
+      <Grid item sm={8} className="card" style={{ textAlign: "left" }}>
+        <Container className="card-body">
+          <Typography variant="h5" className="card-title">
+            Useful Algorithms
+          </Typography>
+          <Typography className="text-muted" variant="h6">
+            Links
+          </Typography>
+          <Container className="card-text">
             <ol>
               {(() => {
                 return AlgoLinks.map((e, i) => (
                   <li key={i}>
-                    {" "}
-                    <a rel="noopener noreferrer" target="_blank" href={e.link}>
-                      {" "}
+                    <Link
+                      rel="noopener noreferrer"
+                      target="_blank"
+                      href={e.link}
+                    >
                       {e.name}
-                    </a>
+                    </Link>
                   </li>
                 ));
               })()}
             </ol>
-          </div>
-        </div>
-      </div>
+          </Container>
+        </Container>
+      </Grid>
     </Container>
   );
 };
