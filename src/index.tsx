@@ -3,22 +3,26 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { AppBar, Button, Toolbar, Typography } from "@material-ui/core";
+import { StarBorder } from "@material-ui/icons";
+
+const bg = "#74ac74";
 
 ReactDOM.render(
   <React.StrictMode>
-    <nav className="navbar navbar-dark bg-dark">
-      <a className="navbar-brand" href="/">
-        Graph Visualizer
-      </a>
-      <a
-        className="github-button"
-        href="https://github.com/itzprasuk/graph-visualizer"
-        data-icon="octicon-star"
-        data-size="large"
-      >
-        Star on GitHub
-      </a>
-    </nav>
+    <AppBar position="static" style={{ background: bg }}>
+      <Toolbar>
+        <Typography variant="h6" style={{ flexGrow: 1 }}>
+          <b>Graph Visualizer</b>
+        </Typography>
+        <Button href="https://github.com/itzprasuk/Graph-Visualizer">
+          <Typography display="inline" variant="body2">
+            <StarBorder />
+            {/* <b> Star on GitHub</b> */}
+          </Typography>
+        </Button>
+      </Toolbar>
+    </AppBar>
 
     <div style={{ height: "calc(100vh - 56px)" }}>
       <App />

@@ -3,7 +3,7 @@ body {
   margin: 0;
 }
 
-.card{
+.card {
   display: inline-block;
 }
 
@@ -15,18 +15,33 @@ body {
 
 .input-container .card {
   margin: auto;
-  margin-bottom : 100px;
+  margin-bottom: 100px;
   text-align: left;
   padding-bottom: 20px;
 }
 
-.input-item {
+.input-itemfirst {
   justify-content: center;
   align-items: center;
   padding: 20px;
   padding-right: 0px;
   position: relative;
+  border-right: 2px solid rgba(0, 0, 0, .125);
 }
+
+@media(max-width:960px) {
+  .input-itemfirst {
+    border-right: 0px solid #fff;
+  }
+}
+
+.input-item {
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    padding-right: 0px;
+    position: relative;
+  }
 
 .input-submit {
   width: 100%;
@@ -40,12 +55,9 @@ body {
 
 .center-button {
   height: 40px;
-  width: 60px;
-  /* position: absolute; */
   bottom: 10px;
-  left: calc(50% - 30px);
+  left: 38%;
   font-size: 20px;
   font-weight: bold;
-  z-index: 1000;
   border-radius: 5px;
 }

@@ -1,5 +1,18 @@
 import React from "react";
+import { Button, Grid, Theme, Typography, withStyles } from "@material-ui/core";
+import { Replay } from "@material-ui/icons";
 import Graph from "vis-react";
+import { green } from "@material-ui/core/colors";
+
+const ColorButton = withStyles((theme: Theme) => ({
+  root: {
+    color: theme.palette.getContrastText(green[500]),
+    backgroundColor: green[400],
+    "&:hover": {
+      backgroundColor: green[600],
+    },
+  },
+}))(Button);
 
 const GraphElement = ({
   inputString,
@@ -11,19 +24,47 @@ const GraphElement = ({
   is0,
 }: any) => {
   return (
-    <div className="App" style={{ height: "100%" }}>
-      <div style={{ textAlign: "center", height: 55 }}>
-        <b>Input Type:</b>{" "}
-        {inputFormat === "edg" ? "Edges List" : "Adjacency List"}&emsp;&emsp;
-        <b>Graph Type:</b> {isDirected ? "Directed" : "Undirected"}&emsp;&emsp;
-        <b>isWeighted:</b>
-        {isWeighted ? "True" : "False"}&emsp;&emsp;
-        <b>Start Index:</b>
-        {is0 ? "0" : "1"} <br />
-        <b>Input</b> {inputString}
-      </div>
-      {/* <div> */}
-      <div style={{ height: "calc(100% - 105px)" }}>
+    <Grid className="App" style={{ height: "100%" }}>
+      <Grid style={{ textAlign: "center", height: 55 }}>
+        {inputFormat === "edg" ? (
+          <Typography display="inline" variant="body2">
+            <b>Input Type : </b>Edges List
+          </Typography>
+        ) : (
+          <Typography display="inline" variant="body2">
+            <b>Input Type : </b>Adjacency List
+          </Typography>
+        )}&emsp; &emsp;
+        {isDirected ? (
+          <Typography display="inline" variant="body2">
+            <b>Graph Type : </b>Directed
+          </Typography>
+        ) : (
+          <Typography display="inline" variant="body2">
+            <b>Graph Type : </b>Undirected
+          </Typography>
+        )}&emsp; &emsp;
+        {isWeighted ? (
+          <Typography display="inline" variant="body2">
+            <b>Weighted : </b>True
+          </Typography>
+        ) : (
+          <Typography display="inline" variant="body2">
+            <b>Weighted : </b>False
+          </Typography>
+        )}&emsp; &emsp;
+        {is0 ? (
+          <Typography display="inline" variant="body2">
+            <b>Start Index : </b>0
+          </Typography>
+        ) : (
+          <Typography display="inline" variant="body2">
+            <b>Start Index : </b>1
+          </Typography>
+        )}
+        <Typography variant ="body2"><b>Input : </b> {inputString}</Typography>
+      </Grid>
+      <div style={{ height: "calc(100% - 105px)",borderWidth: 2, borderColor: "grey" }}>
         {/* @ts-ignore */}
         <Graph
           options={{
@@ -38,15 +79,15 @@ const GraphElement = ({
           graph={graph}
         />
       </div>
-      <div style={{ textAlign: "center", height: 20 }}>
-        <button
-          className="center-button btn btn-primary"
+      <Grid sm={7}style={{ textAlign: "center", height: 20 }}>
+        <ColorButton
+          className="center-button"
           onClick={() => setShowGraph(false)}
-        >
-          <span className="reload">&#x21bb;</span>
-        </button>
-      </div>
-    </div>
+          startIcon={<Replay fontSize="large" />}
+        > Reload
+        </ColorButton>
+      </Grid>
+    </Grid>
   );
 };
 

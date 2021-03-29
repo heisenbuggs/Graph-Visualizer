@@ -16,7 +16,7 @@ import {
   Typography,
   withStyles,
 } from "@material-ui/core";
-import { green, orange } from "@material-ui/core/colors";
+import { green, grey } from "@material-ui/core/colors";
 import AlgoLinks from "../algoLinks";
 import { Send } from "@material-ui/icons";
 
@@ -41,13 +41,13 @@ const IOSSwitch = withStyles((theme: Theme) =>
         transform: "translateX(16px)",
         color: theme.palette.common.white,
         "& + $track": {
-          backgroundColor: orange[500],
+          backgroundColor: green[400],
           opacity: 1,
           border: "none",
         },
       },
       "&$focusVisible $thumb": {
-        color: orange[500],
+        color: green[400],
         border: "6px solid #fff",
       },
     },
@@ -85,17 +85,17 @@ const IOSSwitch = withStyles((theme: Theme) =>
 const CssTextField = withStyles({
   root: {
     "& label.Mui-focused": {
-      color: orange[500],
+      color: green[400],
     },
     "& .MuiInput-underline:after": {
-      borderBottomColor: orange[500],
+      borderBottomColor: green[400],
     },
     "& .MuiOutlinedInput-root": {
       "&:hover fieldset": {
-        borderColor: orange[500],
+        borderColor: green[400],
       },
       "&.Mui-focused fieldset": {
-        borderColor: orange[500],
+        borderColor: green[400],
       },
     },
   },
@@ -104,18 +104,18 @@ const CssTextField = withStyles({
 const ColorButton = withStyles((theme: Theme) => ({
   root: {
     color: theme.palette.getContrastText(green[500]),
-    backgroundColor: orange[500],
+    backgroundColor: green[400],
     "&:hover": {
-      backgroundColor: orange[700],
+      backgroundColor: green[700],
     },
   },
 }))(Button);
 
 const GreenCheckbox = withStyles({
   root: {
-    color: orange[400],
+    color: grey[400],
     "&$checked": {
-      color: orange[600],
+      color: green[400],
     },
   },
   checked: {},
@@ -149,10 +149,9 @@ const Input = ({
         <Grid container>
           <Grid
             item
-            className="input-item"
+            className="input-itemfirst"
             sm={12}
             md={7}
-            style={{ borderRight: "1px solid rgba(0,0,0,.125)" }}
           >
             <Grid container className="row">
               <Grid item sm={5}>
